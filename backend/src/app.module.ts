@@ -13,12 +13,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'prm_2023',
-      entities: [],
-      synchronize: true,
+      database: 'prm_2023'
     })
-	],
+  ],
   controllers: [AppController, ProfileController],
   providers: [AppService, ProfileService],
 })
-export class AppModule { }
+export class AppModule {}
