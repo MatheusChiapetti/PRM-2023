@@ -6,6 +6,11 @@ import { ProfileService } from './services/profile.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from "./entities/user.entity";
 import { Topic } from "./entities/topic.entity";
+import { UserController } from './controllers/user.controller';
+import { TopicController } from './controllers/topic.controller';
+import { AuthController } from './controllers/auth.controller';
+import { UserService } from './services/user.service';
+import { TopicService } from './services/topic.service';
 
 @Module({
   imports: [
@@ -18,10 +23,10 @@ import { Topic } from "./entities/topic.entity";
       database: 'prm_2023',
       synchronize: true,
       entities: [User, Topic]
-    })
+    }),
     TypeOrmModule.forFeature([User, Topic])
   ],
-  controllers: [AppController, ProfileController],
-  providers: [AppService, ProfileService],
+  controllers: [AppController, ProfileController, UserController, TopicController, AuthController],
+  providers: [AppService, ProfileService, UserService, TopicService, AuthController],
 })
 export class AppModule { }
