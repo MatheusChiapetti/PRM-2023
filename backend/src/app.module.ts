@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProfileController } from './controllers/profile.controller';
-import { ProfileService } from './services/profile.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from "./entities/user.entity";
 import { Topic } from "./entities/topic.entity";
@@ -33,6 +32,6 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forFeature([User, Topic])
   ],
   controllers: [AppController, ProfileController, UserController, TopicController, AuthController],
-  providers: [AppService, ProfileService, UserService, TopicService, AuthController],
+  providers: [AppService, UserService, TopicService, AuthController],
 })
 export class AppModule { }

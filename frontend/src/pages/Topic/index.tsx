@@ -2,18 +2,16 @@ import { Box } from "@mui/material";
 import HeaderProfile from "../../components/HeaderProfile";
 import TopicList from "../../components/TopicsList";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function TopicPage() {
 
+    const params = useParams();
     const [profile, setProfile] = useState({});
 
     useEffect(() => {
 
-        fetch('http://localhost:3000/profile')
-            .then(res => res.json())
-            .then(data => {
-                setProfile(data);
-            })
+
 
     }, [])
 
