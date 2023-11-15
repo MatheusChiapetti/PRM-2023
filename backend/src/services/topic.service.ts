@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Topic } from "src/entities/topic.entity";
+import { User } from "src/entities/user.entity";
 import { ApplicationException } from "src/exceptions";
 import { Repository } from "typeorm";
 
@@ -13,7 +14,17 @@ export class TopicService {
     ) { }
 
     findAll(): Promise<Topic[]> {
-        return this.repository.find();
+        return this.repository.find({
+            order: {
+                id: 'DESC'
+            }
+        });
+    }
+
+    findByUser(user: User): Promise<Topic[]> {
+        return this.repository.find({ 
+            where: { owner: { id: user.id } }, order: { id: 'DESC' }
+        });
     }
 
     findById(id: number): Promise<Topic> {
@@ -30,7 +41,7 @@ export class TopicService {
 
     async update(id: number, topic: Topic): Promise<Topic> {
 
-        const found = await this.repository.findOneBy({id: id})
+        const found = await this.repository.findOneBy({ id: id })
 
         if (!found) {
             throw new ApplicationException('Topic not foun', 404)
