@@ -1,9 +1,9 @@
-import { Box, Button, Fab, Tab, Tabs, TextField } from "@mui/material";
+import { Alert, Box, Button, Fab, Snackbar, Tab, Tabs, TextField } from "@mui/material";
 import HeaderProfile from "../../components/HeaderProfile";
 import TopicList from "../../components/TopicsList";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProfileByUsername, getTopicsByUsername } from "../../services";
+import { createTopic, getProfileByUsername, getTopicsByUsername } from "../../services";
 import { useAuth } from "../../hook/useAuth";
 import { ITopic, IUser } from "../../@types";
 import AddIcon from "@mui/icons-material/Add"
@@ -17,8 +17,8 @@ function TopicPage() {
 
     const [messageError, setMessageError] = useState('')
 
-    const [profileTopics, setProfileTopics] = useState([]);
-    const [topics, setTopics] = useState([]);
+    const [profileTopics, setProfileTopics] = useState<ITopic[]>([]);
+    const [topics, setTopics] = useState<ITopic[]>([]);
 
     const [tab, setTab] = useState(1);
     function handleTabChange(event: SyntheticEvent, newValue: number) {
@@ -31,10 +31,24 @@ function TopicPage() {
     const [topicForm, setTopicForm] = useState<ITopic>({} as ITopic)
     function handleShowForm() {
         setShowForm(true);
-        setTopicForm({content: '', owner: user})
+        setTopicForm({ content: '', owner: user })
     }
     function handleCreateTopic() {
         setLoading(true);
+
+        createTopic(topicForm).then(result => { 
+            setProfileTopics([result.data, ...topics]);
+            setMessageSuccess('Tópico criado com sucesso! ');
+            setTimeout(() => {
+                setMessageSuccess('');
+            }, 5000);
+        }).catch(error => { 
+            setMessageError(error.message);
+        }).finally(() => {
+            setShowForm(false);
+            setLoading(false);
+        })
+
     }
 
     useEffect(() => {
@@ -88,7 +102,7 @@ function TopicPage() {
                         )}
                         {showForm && (
                             <Box display="flex" flexDirection="column" alignItems="end" gap={3} style={{ marginTop: '2rem', width: '100%' }}>
-                                <TextField label="Novo Tópico" placeholder="No que você está pensando?" multiline fullWidth required autoFocus rows={4} disabled={loading} inputProps={{ maxLenght: 250 }} />
+                                <TextField label="Novo Tópico" placeholder="No que você está pensando?" multiline fullWidth required autoFocus rows={4} disabled={loading} inputProps={{ maxLenght: 250 }} value={topicForm.content} onChange={event => setTopicForm({ ...topicForm, content: (event.target as HTMLInputElement).value })}/>
                                 <Box display="flex" flexDirection="row" gap={3}>
                                     <Button size="small" disabled={loading} onClick={() => setShowForm(false)}>
                                         Cancelar
@@ -106,7 +120,26 @@ function TopicPage() {
                     <TopicList items={topics} />
                 )}
 
+
+                <Snackbar
+                    open={Boolean(messageError)}
+                    autoHideDuration={6000}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                    <Alert severity="error" variant="filled" onClose={() => setMessageError('')}>
+                        {messageError}
+                    </Alert>
+                </Snackbar>
+                <Snackbar
+                    open={Boolean(messageSuccess)}
+                    autoHideDuration={6000}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                    <Alert severity="success" variant="filled" onClose={() => setMessageSuccess('')}>
+                        {messageSuccess}
+                    </Alert>
+                </Snackbar>
             </Box>
+
+
 
         </Box>
     )

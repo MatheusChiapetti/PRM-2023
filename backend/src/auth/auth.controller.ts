@@ -1,8 +1,8 @@
 import { Controller, Body, Post, UnauthorizedException, HttpStatus, HttpCode, UseInterceptors, ClassSerializerInterceptor, HttpException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt/dist/jwt.service";
-import { User } from "src/entities/user.entity";
-import { AuthService } from "src/services/auth.service";
-import { UserService } from "src/services/user.service";
+import { AuthService } from "src/auth/auth.service";
+import { User } from "src/users/user.entity";
+import { UserService } from "src/users/user.service";
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')

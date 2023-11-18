@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ICredential, IUser } from "../@types"
+import { ICredential, ITopic, IUser } from "../@types"
 
 const token = localStorage.getItem('token');
 
@@ -24,9 +24,12 @@ const getTopicsByUsername = (username?: string) => {
     return api.get(`${_TOPICS}${queryParam}`);
 }
 
+const createTopic = (topic: ITopic) => (api.post(_TOPICS, topic));
+
 export {
     signIn,
     signUp,
     getProfileByUsername,
-    getTopicsByUsername
+    getTopicsByUsername,
+    createTopic
 }

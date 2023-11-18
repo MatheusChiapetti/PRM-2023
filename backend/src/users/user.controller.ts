@@ -1,7 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, UseInterceptors } from "@nestjs/common";
-import { UserService } from "src/services/user.service";
-import { get } from "http";
-import { User } from "src/entities/user.entity";
+import { UserService } from "./user.service";
+import { User } from "./user.entity";
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
