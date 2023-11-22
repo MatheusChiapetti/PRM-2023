@@ -1,18 +1,34 @@
-import { ChatBubble, Repeat, FavoriteBorder } from '@mui/icons-material';
+import { ChatBubble, Repeat, FavoriteBorder, ChatBubbleOutline } from '@mui/icons-material';
 import { Button } from "@mui/material";
 
 import "./style.css"
 import { ITopic } from '../../@types';
 
 type TopicCardActionsProps = {
-    topic: ITopic
+    // Prova: Esses três métodos vão estar no LIKE.
+    commented: boolean,
+    totalComments: number
+    clickComment: () => void,
 }
-function TopicCardActions({ topic }: TopicCardActionsProps) {
+function TopicCardActions({ 
+    commented,
+    totalComments, 
+    clickComment
+}: TopicCardActionsProps) {
     return (
         <div id="topic-card-actions">
-            <Button variant="text" size="small" startIcon={<ChatBubble />}>3</Button>
-            <Button variant="text" size="small" startIcon={<Repeat />}>23</Button>
-            <Button variant="text" size="small" startIcon={<FavoriteBorder />}>33</Button>
+            <Button variant="text" size="small" // Prova: igual no LIKE. Se CURTIR/NÃO CURTIR, pinta o botão. 
+            startIcon={ commented ? <ChatBubble /> : <ChatBubbleOutline />} onClick={clickComment}>
+                {totalComments}
+            </Button>
+
+            <Button variant="text" size="small" startIcon={<Repeat />}>
+                23
+            </Button>
+
+            <Button variant="text" size="small" startIcon={<FavoriteBorder />}>
+                33
+            </Button>
 
         </div>
     )

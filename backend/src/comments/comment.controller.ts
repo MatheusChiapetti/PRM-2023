@@ -18,7 +18,8 @@ export class CommentController {
         if (!query?.topic) {
             throw new HttpException('Tópico não informado. ', HttpStatus.BAD_REQUEST);
         }
-        const found = await this.topicService.findById(query.usename);
+
+        const found = await this.topicService.findById(query.topic);
 
         if (!found) {
             throw new HttpException('Tópico não encontrado. ', HttpStatus.BAD_REQUEST);
