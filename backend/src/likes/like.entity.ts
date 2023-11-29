@@ -8,15 +8,10 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 
 // O CURTIR vai ter uma entity igual a essa, só não vai ter o @Column. 
 
-@Entity('topic_user_comment')
-export class Comment {
+@Entity('topic_user_like')
+export class Like {
     @PrimaryGeneratedColumn()
     id: number;
-
-    // ------------------------------------------------- //
-    @Column({ nullable: false, length: 250 })
-    content: string;
-    // ------------------------------------------------- //
 
     @ManyToOne(() => User, { eager: true, nullable: false })
     @JoinColumn({ name: 'user_id' })

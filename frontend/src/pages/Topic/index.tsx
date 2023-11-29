@@ -8,6 +8,7 @@ import { useAuth } from "../../hook/useAuth";
 import { ITopic, IUser } from "../../@types";
 import AddIcon from "@mui/icons-material/Add"
 import { LoadingButton } from "@mui/lab";
+import { useTopic } from "../../hook/useTopic";
 
 function TopicPage() {
 
@@ -18,7 +19,8 @@ function TopicPage() {
     const [messageError, setMessageError] = useState('')
 
     const [profileTopics, setProfileTopics] = useState<ITopic[]>([]);
-    const [topics, setTopics] = useState<ITopic[]>([]);
+    // const [topics, setTopics] = useState<ITopic[]>([]);
+    const {topics, setTopics} = useTopic();
 
     const [tab, setTab] = useState(1);
     function handleTabChange(event: SyntheticEvent, newValue: number) {

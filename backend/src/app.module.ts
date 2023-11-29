@@ -6,6 +6,8 @@ import { UserModule } from './users/user.module';
 import { TopicModule } from './topics/topic.module';
 import { ProfileModule } from './profiles/profile.module';
 import { CommentModule } from './comments/comment.module';
+import { RepostModule } from './repost/repost.module';
+import { LikeModule } from './likes/like.module';
 
 @Module({
   imports: [
@@ -28,7 +30,10 @@ import { CommentModule } from './comments/comment.module';
     TopicModule,
     AuthModule,
     ProfileModule,
-    CommentModule
+    CommentModule,
+    RepostModule,
+
+    LikeModule
   ],
   controllers: [],
   providers: [],

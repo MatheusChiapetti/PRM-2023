@@ -12,9 +12,6 @@ export class CommentService {
         private readonly repository: Repository<Comment>
     ) { }
 
-    // Mesmo método para o CURTIR.
-    // Like é uma palavra reservada do SQL, por isso usar entre `like` crases.
-
     findByTopic(topic: Topic): Promise<Comment[]> {
         return this.repository.find({
             where: {
